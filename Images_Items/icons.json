@@ -1,0 +1,15 @@
+{
+    "settings": {
+        "icon_size": 100,
+        "max_columns": 30
+    },
+    "atlases_urls": [
+        "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/items_atlas_0.png"
+    ],
+    "items": {
+        "Сироп характеристик актера": {
+            "atlas": 0,
+            "index": 0
+        }
+    }
+}
