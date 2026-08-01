@@ -1,10 +1,12 @@
 {
   "schema_version": 1,
-  "version": "0.8.0",
+  "version": "0.8.1",
   "protocol_version": 2,
-  "libs_version": "1.0.0",
+  "libs_version": "1.1.0",
   "repository_raw_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main",
   "api_base_url": "",
+  "release_notes": "KladManager: Font Awesome 6 Solid, очищенный ZIP библиотек и автоматические проверки обновления.",
+  "maintenance_message": "",
   "assets": {
     "map": {
       "source": "Images/Map.jpg",
@@ -46,8 +48,8 @@
       "critical": true
     },
     {
-      "source": "lib/mimgui/fAwesome5.lua",
-      "path": "lib/mimgui/fAwesome5.lua",
+      "source": "lib/fAwesome6_solid.lua",
+      "path": "lib/fAwesome6.lua",
       "critical": true
     },
     {
@@ -59,11 +61,6 @@
       "source": "lib/iconv.dll",
       "path": "lib/iconv.dll",
       "critical": true
-    },
-    {
-      "source": "lib/iconv/COPYING-libiconv",
-      "path": "lib/KladManager_notices/libiconv-LGPL-2.1.txt",
-      "critical": false
     },
     {
       "source": "lib/json.lua",
@@ -131,18 +128,8 @@
       "critical": true
     },
     {
-      "source": "lib/vkeys.lua",
-      "path": "lib/vkeys.lua",
-      "critical": true
-    },
-    {
       "source": "lib/windows/message.lua",
       "path": "lib/windows/message.lua",
-      "critical": true
-    },
-    {
-      "source": "resource/fonts/fa-solid-900.ttf",
-      "path": "resource/fonts/fa-solid-900.ttf",
       "critical": true
     }
   ]
