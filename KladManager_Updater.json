@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "version": "0.8.1",
+  "version": "0.8.2",
   "protocol_version": 2,
   "script_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/KladManager.luac",
-  "script_size": 310113,
-  "script_sha256": "d08a60d6980f738d053b0bba9a2ddaeb418e29c560eb54a089576e81685e8ef2",
+  "script_size": 310273,
+  "script_sha256": "6186b2a26ced77c7ea0b4f921c92537888052d58b876b8bd167f2a0069fb7adb",
   "libs_version": "1.1.0",
   "libs_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/Libs/KladManager_Libs.zip",
   "libs_size": 2893836,
@@ -15,6 +15,6 @@
   "icons_sha256": "ec15568857b59dcb0521c191640e0773deb5ee02bccd4a75a13ea85ff4904be6",
   "atlas_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/Images_Items/items_atlas.png",
   "atlas_sha256": "526c63d062d17166919f04cf071b3ad28796490e5736fdd3691fd6616c50bc08",
-  "release_notes": "KladManager: Font Awesome 6 Solid, очищенный ZIP библиотек и автоматические проверки обновления.",
+  "release_notes": "KladManager: Font Awesome 6 Solid и совместимость меню с mimgui 1.7.0 без PushStyleVar/TreeNode crashes.",
   "maintenance_message": ""
 }
