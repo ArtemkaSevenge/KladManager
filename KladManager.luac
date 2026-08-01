@@ -1,14 +1,13 @@
 script_name("KladManager")
 script_author("KladManager Project")
-script_version("0.8.1")
+script_version("0.9.0")
 KM_MOONLOADER = require("moonloader")
 KM_BIT = require("bit")
 KladManager = {}
 KladManager.DownloadStatus = KM_MOONLOADER.download_status
 KladManager.ApiBaseUrl = ""
-KM_VERSION = "0.8.1"
+KM_VERSION = "0.9.0"
 KM_PROTOCOL_VERSION = 2
-KM_LIBS_VERSION = "1.1.0"
 KM_MANIFEST_URL = "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/KladManager_Updater.json"
 KM_ROOT = getWorkingDirectory()
 KM_CONFIG = KM_ROOT .. "\\config\\KladManager"
@@ -17,6 +16,7 @@ KM_IMAGES = KM_DATA .. "\\Images"
 KM_ITEMS = KM_DATA .. "\\Images_Items"
 KM_PENDING = KM_CONFIG .. "\\update.pending"
 KM_LIBS_MARKER = KM_CONFIG .. "\\libs.version"
+KM_ASSETS_MARKER = KM_CONFIG .. "\\assets.version"
 KM_TEMP_LEDGER = KM_CONFIG .. "\\temps.list"
 KM_DOWNLOAD_TIMEOUT = 30000
 KM_MAX_DOWNLOAD = 67108864
@@ -24,32 +24,29 @@ KM_READY = false
 KM_COMMAND_REGISTERED = false
 KM_DOWNLOAD_SEQUENCE = 0
 KM_CHAT_COLOR = 0xE06A1B
-KM_MAP_SHA256 = "7825f1a0ce7a49bf7796c6e7485ea58f3925b269d09a8547256fc2e1918738be"
-KM_ICONS_SHA256 = "ec15568857b59dcb0521c191640e0773deb5ee02bccd4a75a13ea85ff4904be6"
-KM_ATLAS_SHA256 = "526c63d062d17166919f04cf071b3ad28796490e5736fdd3691fd6616c50bc08"
 KM_LIB_REQUIRED = {
-    {path="lib/effil.lua",size=1654,sha256="5685236a73337237372226bef9740a6f7cb981998912724a0e4bd326da7e96dd"},
-    {path="lib/encoding.lua",size=2636,sha256="57cb02218d46eb1b8b2b14ecde30fc0d1798fad9c69c2138ff9a7bf63d3efe9d"},
-    {path="lib/fAwesome6.lua",size=344020,sha256="adfda9f06ea758f5573fe2e72890efe25d31cdb53a109b605945610f980fd1fc"},
-    {path="lib/iconv.dll",size=1000960,sha256="bb4cc421b7606055d1d517775b15ce77a27ad97b14de2fc31c9d9e3cf788b98f"},
-    {path="lib/json.lua",size=9638,sha256="0eaccda57fabc0330736de25f45cf589821a42b5e0fe02e4e3125f7dc0bf2b7e"},
-    {path="lib/libeffil.dll",size=594432,sha256="8ac736f5d9116fda2682909477bb7da83e53fbc1eaaeb2826aec35dbd6da874c"},
-    {path="lib/mimgui/cdefs.lua",size=118018,sha256="8e5d3488f23c446a6a8a61b6b0ecc25cc38f326257b14801023bfad3bf650a7e"},
-    {path="lib/mimgui/cimguidx9.dll",size=543744,sha256="1a7a059974c33095edc2f2da880d7c79c99d7e3b3c189e2f51036bb7e519d88b"},
-    {path="lib/mimgui/dx9.lua",size=6905,sha256="32904fdf0d1c8ecf6842df2c6feac94545cdf1c98631e174f0ccd50f37185f38"},
-    {path="lib/mimgui/imgui.lua",size=103788,sha256="dac0e8cad50f766f8284a6bfeccb9ce275aa809d842e90ce81de52991cd87e9a"},
-    {path="lib/mimgui/init.lua",size=12042,sha256="9df73262d77abce0970d409f599e1bd02cecbeb8bd1629027796d74454ed3efd"},
-    {path="lib/samp/events.lua",size=26829,sha256="af575f181035ffec76424b3feb2554662e81289c85e9a305637aba9445b7d440"},
-    {path="lib/samp/events/bitstream_io.lua",size=7155,sha256="7f62d7dffa26d0f723a1a307eb04b022fcafb79959e1ed4fa3c348a52bcb1ec9"},
-    {path="lib/samp/events/core.lua",size=3880,sha256="54a16caa6c9d073031d2c3706c34e4f83f7736b202a7efc804fd50708c6c2f75"},
-    {path="lib/samp/events/extra_types.lua",size=1573,sha256="89cf1988d8fd450f67ad4778aecc63e36ec353419cb8e31342ee7083e7cc4783"},
-    {path="lib/samp/events/handlers.lua",size=17405,sha256="1d6d2498fa90cf692809f6cd4ba3e3d30615c3b8f7764bfdfbe863ee244a81c8"},
-    {path="lib/samp/events/utils.lua",size=1385,sha256="0585c8ee8d65ac0b389c320baa9d0c7a17393640b1e13ddd3cc1ff0ec93e381f"},
-    {path="lib/samp/raknet.lua",size=12181,sha256="d0c47eefefe87387d00e806274d69a0dd2a22e885aa934fe08ec82b89cd1a3a1"},
-    {path="lib/samp/synchronization.lua",size=4296,sha256="1609e479684198d343cac5c8f4f5a521ba631eb80f7231ef4a103c3315d9b6fc"},
-    {path="lib/sampfuncs.lua",size=15207,sha256="7c2528ec287d4ffdcb381f3a96a6678361075828cc727e9ff2e9cb91d4ad0cd3"},
-    {path="lib/vector3d.lua",size=1770,sha256="53ef9eedad5994e05320dcb5c14b504dd6c09e6a70111d76eb60a52d6c4a68af"},
-    {path="lib/windows/message.lua",size=26909,sha256="4ab3845c28e7755c86736162fd22cba165e534ec1df5c76665ce8ffdbb8a929f"},
+    "lib/effil.lua",
+    "lib/encoding.lua",
+    "lib/fAwesome6.lua",
+    "lib/iconv.dll",
+    "lib/json.lua",
+    "lib/libeffil.dll",
+    "lib/mimgui/cdefs.lua",
+    "lib/mimgui/cimguidx9.dll",
+    "lib/mimgui/dx9.lua",
+    "lib/mimgui/imgui.lua",
+    "lib/mimgui/init.lua",
+    "lib/samp/events.lua",
+    "lib/samp/events/bitstream_io.lua",
+    "lib/samp/events/core.lua",
+    "lib/samp/events/extra_types.lua",
+    "lib/samp/events/handlers.lua",
+    "lib/samp/events/utils.lua",
+    "lib/samp/raknet.lua",
+    "lib/samp/synchronization.lua",
+    "lib/sampfuncs.lua",
+    "lib/vector3d.lua",
+    "lib/windows/message.lua",
 }
 KM_SHA256_K = {
     0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
@@ -260,30 +257,6 @@ function KM_SHA256(payload)
     )
 end
 
-function KM_FILE_SHA256(path)
-    local payload = KM_READ(path)
-    if not payload then
-        return nil
-    end
-    return KM_SHA256(payload)
-end
-
-function KM_VERIFY(path, size, sha256)
-    local actual_size = KM_FILE_SIZE(path)
-    if not actual_size or actual_size ~= size then
-        return false
-    end
-    return KM_FILE_SHA256(path) == sha256
-end
-
-function KM_VERIFY_HASH(path, sha256)
-    local size = KM_FILE_SIZE(path)
-    if not size or size > KM_MAX_DOWNLOAD then
-        return false
-    end
-    return KM_FILE_SHA256(path) == sha256
-end
-
 function KM_JSON_UTF8(codepoint)
     if codepoint <= 127 then
         return string.char(codepoint)
@@ -444,10 +417,6 @@ function KM_VERSION_COMPARE(left, right)
     return 0
 end
 
-function KM_IS_SHA256(value)
-    return type(value) == "string" and #value == 64 and value:match("^[0-9a-f]+$") ~= nil
-end
-
 function KM_IS_HTTPS(value)
     return type(value) == "string"
         and value:match("^https://") ~= nil
@@ -459,10 +428,9 @@ end
 function KM_VALIDATE_MANIFEST(value)
     local expected = {
         schema_version="number",version="string",protocol_version="number",
-        script_url="string",script_size="number",script_sha256="string",
-        libs_version="string",libs_url="string",libs_size="number",libs_sha256="string",
-        map_url="string",map_sha256="string",icons_url="string",icons_sha256="string",
-        atlas_url="string",atlas_sha256="string",release_notes="string",maintenance_message="string"
+        script_url="string",libs_version="string",libs_url="string",
+        assets_version="string",map_url="string",icons_url="string",
+        atlas_url="string",release_notes="string",maintenance_message="string"
     }
     local count = 0
     for key, field_type in pairs(expected) do
@@ -478,36 +446,23 @@ function KM_VALIDATE_MANIFEST(value)
             return false
         end
     end
-    if actual ~= count or value.schema_version ~= 1 or value.protocol_version ~= KM_PROTOCOL_VERSION then
+    if actual ~= count or value.schema_version ~= 2 or value.protocol_version ~= KM_PROTOCOL_VERSION then
         return false
     end
-    if not KM_VERSION_PARTS(value.version) or not KM_VERSION_PARTS(value.libs_version) then
-        return false
-    end
-    if value.script_size < 1 or value.script_size > 33554432 then
-        return false
-    end
-    if value.libs_size < 1 or value.libs_size > KM_MAX_DOWNLOAD then
+    if not KM_VERSION_PARTS(value.version) or not KM_VERSION_PARTS(value.libs_version)
+        or not KM_VERSION_PARTS(value.assets_version) then
         return false
     end
     if #value.release_notes > 2000 or #value.maintenance_message > 500 then
         return false
     end
     local urls = {value.script_url,value.libs_url,value.map_url,value.icons_url,value.atlas_url}
-    local hashes = {
-        value.script_sha256,value.libs_sha256,value.map_sha256,value.icons_sha256,value.atlas_sha256
-    }
     local seen = {}
     for _, url in ipairs(urls) do
         if not KM_IS_HTTPS(url) or seen[url] then
             return false
         end
         seen[url] = true
-    end
-    for _, hash in ipairs(hashes) do
-        if not KM_IS_SHA256(hash) then
-            return false
-        end
     end
     return true
 end
@@ -567,66 +522,12 @@ function KM_DOWNLOAD(url, target, timeout)
     return true, nil
 end
 
-function KM_FETCH(url, target, size, sha256)
+function KM_FETCH(url, target)
     local ok, reason = KM_DOWNLOAD(url, target, KM_DOWNLOAD_TIMEOUT)
     if not ok then
         return false, reason
     end
-    if not KM_VERIFY(target, size, sha256) then
-        KM_SAFE_REMOVE(target)
-        return false, "hash"
-    end
     return true, nil
-end
-
-function KM_FETCH_HASH(url, target, sha256)
-    local ok, reason = KM_DOWNLOAD(url, target, KM_DOWNLOAD_TIMEOUT)
-    if not ok then
-        return false, reason
-    end
-    if not KM_VERIFY_HASH(target, sha256) then
-        KM_SAFE_REMOVE(target)
-        return false, "hash"
-    end
-    return true, nil
-end
-
-function KM_ATOMIC_ASSET(url, target, sha256)
-    if KM_VERIFY_HASH(target, sha256) then
-        return true
-    end
-    if not KM_ENSURE_PARENT(target) then
-        return false
-    end
-    local token = tostring(getGameTimer()) .. "." .. tostring(KM_DOWNLOAD_SEQUENCE + 1)
-    local temporary = target .. ".km." .. token .. ".tmp"
-    local backup = target .. ".km.asset.bak"
-    local ok = KM_FETCH_HASH(url, temporary, sha256)
-    if not ok then
-        return false
-    end
-    KM_SAFE_REMOVE(backup)
-    local had_target = KM_FILE_EXISTS(target)
-    if had_target and not os.rename(target, backup) then
-        KM_SAFE_REMOVE(temporary)
-        return false
-    end
-    if not os.rename(temporary, target) then
-        if had_target then
-            os.rename(backup, target)
-        end
-        KM_SAFE_REMOVE(temporary)
-        return false
-    end
-    if not KM_VERIFY_HASH(target, sha256) then
-        KM_SAFE_REMOVE(target)
-        if had_target then
-            os.rename(backup, target)
-        end
-        return false
-    end
-    KM_SAFE_REMOVE(backup)
-    return true
 end
 
 function KM_LE16(data, position)
@@ -643,6 +544,21 @@ function KM_LE32(data, position)
         return nil
     end
     return a + b * 256 + c * 65536 + d * 16777216
+end
+
+function KM_CRC32(payload)
+    local crc = -1
+    for position = 1, #payload do
+        crc = KM_BIT.bxor(crc, payload:byte(position))
+        for _ = 1, 8 do
+            if KM_BIT.band(crc, 1) ~= 0 then
+                crc = KM_BIT.bxor(KM_BIT.rshift(crc, 1), 0xEDB88320)
+            else
+                crc = KM_BIT.rshift(crc, 1)
+            end
+        end
+    end
+    return KM_U32(KM_BIT.bnot(crc))
 end
 
 function KM_SAFE_ZIP_PATH(path)
@@ -762,14 +678,39 @@ function KM_PARSE_ZIP(data)
     return entries, nil
 end
 
-function KM_LIBS_OK()
-    for _, entry in ipairs(KM_LIB_REQUIRED) do
-        local target = KM_ROOT .. "\\" .. entry.path:gsub("/", "\\")
-        if not KM_VERIFY(target, entry.size, entry.sha256) then
+function KM_MARKER_VERSION(path)
+    local payload = KM_READ(path)
+    return payload and payload:match("^([^\r\n]+)") or nil
+end
+
+function KM_LIB_FILE_OK(relative, absolute)
+    local target = absolute or KM_ROOT .. "\\" .. relative:gsub("/", "\\")
+    local size = KM_FILE_SIZE(target)
+    if not size or size < 1 or size > 16777216 then
+        return false
+    end
+    if relative:sub(-4):lower() == ".lua" then
+        return loadfile(target) ~= nil
+    elseif relative:sub(-4):lower() == ".dll" then
+        local payload = KM_READ(target)
+        return payload ~= nil and payload:sub(1, 2) == "MZ"
+    end
+    return true
+end
+
+function KM_LIB_FILES_OK()
+    for _, relative in ipairs(KM_LIB_REQUIRED) do
+        if not KM_LIB_FILE_OK(relative) then
             return false
         end
     end
     return true
+end
+
+function KM_LIBS_OK(expected_version)
+    return KM_IS_VERSION(expected_version)
+        and KM_MARKER_VERSION(KM_LIBS_MARKER) == expected_version
+        and KM_LIB_FILES_OK()
 end
 
 function KM_ROLLBACK_FILES(changes)
@@ -782,7 +723,7 @@ function KM_ROLLBACK_FILES(changes)
     end
 end
 
-function KM_INSTALL_LIBS(archive_path)
+function KM_INSTALL_LIBS(archive_path, expected_version)
     local data = KM_READ(archive_path)
     if not data then
         return false, "read"
@@ -800,21 +741,21 @@ function KM_INSTALL_LIBS(archive_path)
         index_entry.data_position,
         index_entry.data_position + index_entry.size - 1
     )
-    if not index_data:find('"libs_version":"' .. KM_LIBS_VERSION .. '"', 1, true) then
+    if not index_data:find('"libs_version":"' .. expected_version .. '"', 1, true) then
         return false, "version"
     end
     local archive_count = 0
     for name in pairs(entries) do
         archive_count = archive_count + 1
         if name ~= index_name then
-            local expected = nil
+            local required = false
             for _, item in ipairs(KM_LIB_REQUIRED) do
-                if item.path == name then
-                    expected = item
+                if item == name then
+                    required = true
                     break
                 end
             end
-            if not expected then
+            if not required then
                 return false, "unexpected"
             end
         end
@@ -825,27 +766,37 @@ function KM_INSTALL_LIBS(archive_path)
     local token = tostring(getGameTimer()) .. "." .. tostring(math.random(100000, 999999))
     local stage_root = KM_CONFIG .. "\\stage.km." .. token
     local staged = {}
-    for _, expected in ipairs(KM_LIB_REQUIRED) do
-        local entry = entries[expected.path]
-        if not entry or entry.size ~= expected.size then
+    for _, relative in ipairs(KM_LIB_REQUIRED) do
+        local entry = entries[relative]
+        if not entry or entry.size < 1 then
             return false, "required"
         end
         local payload = data:sub(entry.data_position, entry.data_position + entry.size - 1)
-        if #payload ~= expected.size or KM_SHA256(payload) ~= expected.sha256 then
-            return false, "required_hash"
+        if #payload ~= entry.size or KM_CRC32(payload) ~= entry.crc then
+            return false, "required_crc"
         end
-        local stage = stage_root .. "\\" .. expected.path:gsub("/", "\\")
+        if relative:sub(-4):lower() == ".dll" and payload:sub(1, 2) ~= "MZ" then
+            return false, "required_dll"
+        end
+        local stage = stage_root .. "\\" .. relative:gsub("/", "\\")
         if not KM_ENSURE_PARENT(stage) or not KM_WRITE(stage, payload) then
             for _, old in ipairs(staged) do
                 KM_SAFE_REMOVE(old.path)
             end
             return false, "stage"
         end
-        staged[#staged + 1] = {path=stage,expected=expected}
+        if not KM_LIB_FILE_OK(relative, stage) then
+            KM_SAFE_REMOVE(stage)
+            for _, old in ipairs(staged) do
+                KM_SAFE_REMOVE(old.path)
+            end
+            return false, "stage_validation"
+        end
+        staged[#staged + 1] = {path=stage,relative=relative}
     end
     local changes = {}
     for _, item in ipairs(staged) do
-        local target = KM_ROOT .. "\\" .. item.expected.path:gsub("/", "\\")
+        local target = KM_ROOT .. "\\" .. item.relative:gsub("/", "\\")
         local backup = target .. ".kmbackup"
         if not KM_ENSURE_PARENT(target) then
             KM_ROLLBACK_FILES(changes)
@@ -863,36 +814,36 @@ function KM_INSTALL_LIBS(archive_path)
             return false, "replace"
         end
     end
-    if not KM_LIBS_OK() then
+    if not KM_LIB_FILES_OK() then
         KM_ROLLBACK_FILES(changes)
         return false, "verify"
+    end
+    if not KM_WRITE(KM_LIBS_MARKER, expected_version .. "\r\n") then
+        KM_ROLLBACK_FILES(changes)
+        return false, "marker"
     end
     for _, change in ipairs(changes) do
         if change.backup then
             KM_SAFE_REMOVE(change.backup)
         end
     end
-    KM_WRITE(KM_LIBS_MARKER, KM_LIBS_VERSION .. "\r\n")
-    return true, nil
+    return KM_LIBS_OK(expected_version), nil
 end
 
 function KM_BOOTSTRAP_LIBS(manifest)
-    if KM_LIBS_OK() then
-        KM_WRITE(KM_LIBS_MARKER, KM_LIBS_VERSION .. "\r\n")
+    KladManager.Runtime.libs_version = manifest.libs_version
+    if KM_LIBS_OK(manifest.libs_version) then
         return true
-    end
-    if manifest.libs_version ~= KM_LIBS_VERSION then
-        return false
     end
     KM_LOG("Загрузка библиотек")
     local archive = KM_CONFIG .. "\\KladManager_Libs.km." .. tostring(getGameTimer()) .. ".tmp"
-    local ok = KM_FETCH(manifest.libs_url, archive, manifest.libs_size, manifest.libs_sha256)
+    local ok = KM_FETCH(manifest.libs_url, archive)
     if not ok then
         return false
     end
-    local installed = KM_INSTALL_LIBS(archive)
+    local installed = KM_INSTALL_LIBS(archive, manifest.libs_version)
     KM_SAFE_REMOVE(archive)
-    return installed and KM_LIBS_OK()
+    return installed and KM_LIBS_OK(manifest.libs_version)
 end
 
 function KM_HANDLE_PENDING()
@@ -931,14 +882,14 @@ function KM_UPDATE_SCRIPT(manifest)
     if comparison == nil then
         return false
     end
-    if comparison >= 0 then
+    if comparison == 0 then
         return true
     end
     KM_LOG("Загрузка обновления")
     local script_path = thisScript().path
     local temporary = script_path .. ".km." .. tostring(getGameTimer()) .. ".tmp"
     local backup = script_path .. ".km.bak"
-    local ok = KM_FETCH(manifest.script_url, temporary, manifest.script_size, manifest.script_sha256)
+    local ok = KM_FETCH(manifest.script_url, temporary)
     if not ok then
         KM_LOG("Ошибка обновления")
         return false
@@ -987,35 +938,91 @@ function KM_LOAD_MANIFEST()
     return manifest, nil
 end
 
-function KM_BOOTSTRAP_ASSETS(manifest)
-    if manifest.map_sha256 ~= KM_MAP_SHA256
-        or manifest.icons_sha256 ~= KM_ICONS_SHA256
-        or manifest.atlas_sha256 ~= KM_ATLAS_SHA256 then
+function KM_ASSET_FILE_OK(kind, path)
+    local payload = KM_READ(path)
+    if not payload or #payload < 2 or #payload > KM_MAX_DOWNLOAD then
         return false
     end
-    local map_ok = KM_ATOMIC_ASSET(manifest.map_url, KM_IMAGES .. "\\Map.jpg", KM_MAP_SHA256)
-    if not map_ok then
-        return false
+    if kind == "map" then
+        return payload:sub(1, 2) == string.char(255, 216)
+            and payload:sub(-2) == string.char(255, 217)
+    elseif kind == "atlas" then
+        return payload:sub(1, 8) == string.char(137) .. "PNG\r\n" .. string.char(26) .. "\n"
+    elseif kind == "icons" then
+        local first = payload:match("^%s*(.)")
+        local last = payload:match("(.)%s*$")
+        return first == "{" and last == "}"
     end
-    local icons_ok = KM_ATOMIC_ASSET(
-        manifest.icons_url,
-        KM_ITEMS .. "\\icons.json",
-        KM_ICONS_SHA256
-    )
-    if not icons_ok then
-        return false
-    end
-    return KM_ATOMIC_ASSET(
-        manifest.atlas_url,
-        KM_ITEMS .. "\\items_atlas.png",
-        KM_ATLAS_SHA256
-    )
+    return false
 end
 
-function KM_ASSETS_OK()
-    return KM_VERIFY_HASH(KM_IMAGES .. "\\Map.jpg", KM_MAP_SHA256)
-        and KM_VERIFY_HASH(KM_ITEMS .. "\\icons.json", KM_ICONS_SHA256)
-        and KM_VERIFY_HASH(KM_ITEMS .. "\\items_atlas.png", KM_ATLAS_SHA256)
+function KM_ASSET_FILES_OK()
+    return KM_ASSET_FILE_OK("map", KM_IMAGES .. "\\Map.jpg")
+        and KM_ASSET_FILE_OK("icons", KM_ITEMS .. "\\icons.json")
+        and KM_ASSET_FILE_OK("atlas", KM_ITEMS .. "\\items_atlas.png")
+end
+
+function KM_ASSETS_OK(expected_version)
+    return KM_IS_VERSION(expected_version)
+        and KM_MARKER_VERSION(KM_ASSETS_MARKER) == expected_version
+        and KM_ASSET_FILES_OK()
+end
+
+function KM_BOOTSTRAP_ASSETS(manifest)
+    KladManager.Runtime.assets_version = manifest.assets_version
+    if KM_ASSETS_OK(manifest.assets_version) then
+        return true
+    end
+    KM_LOG("Загрузка ресурсов")
+    local token = tostring(getGameTimer()) .. "." .. tostring(math.random(100000, 999999))
+    local assets = {
+        {kind="map",url=manifest.map_url,target=KM_IMAGES .. "\\Map.jpg"},
+        {kind="icons",url=manifest.icons_url,target=KM_ITEMS .. "\\icons.json"},
+        {kind="atlas",url=manifest.atlas_url,target=KM_ITEMS .. "\\items_atlas.png"}
+    }
+    local staged = {}
+    for _, asset in ipairs(assets) do
+        local temporary = KM_CONFIG .. "\\asset." .. asset.kind .. ".km." .. token .. ".tmp"
+        local ok = KM_FETCH(asset.url, temporary)
+        if not ok or not KM_ASSET_FILE_OK(asset.kind, temporary) then
+            KM_SAFE_REMOVE(temporary)
+            for _, old in ipairs(staged) do
+                KM_SAFE_REMOVE(old.path)
+            end
+            return false
+        end
+        staged[#staged + 1] = {path=temporary,asset=asset}
+    end
+    local changes = {}
+    for _, item in ipairs(staged) do
+        local target = item.asset.target
+        local backup = target .. ".kmassetbackup"
+        if not KM_ENSURE_PARENT(target) then
+            KM_ROLLBACK_FILES(changes)
+            return false
+        end
+        KM_SAFE_REMOVE(backup)
+        local had_target = KM_FILE_EXISTS(target)
+        if had_target and not os.rename(target, backup) then
+            KM_ROLLBACK_FILES(changes)
+            return false
+        end
+        changes[#changes + 1] = {target=target,backup=had_target and backup or nil}
+        if not os.rename(item.path, target) then
+            KM_ROLLBACK_FILES(changes)
+            return false
+        end
+    end
+    if not KM_ASSET_FILES_OK() or not KM_WRITE(KM_ASSETS_MARKER, manifest.assets_version .. "\r\n") then
+        KM_ROLLBACK_FILES(changes)
+        return false
+    end
+    for _, change in ipairs(changes) do
+        if change.backup then
+            KM_SAFE_REMOVE(change.backup)
+        end
+    end
+    return KM_ASSETS_OK(manifest.assets_version)
 end
 
 function KM_LOAD_OPTIONAL_CORE()
@@ -1061,7 +1068,8 @@ KladManager.SettingsDefaults = {
     },
     ui = {
         scale = "medium",
-        opacity = 0.96
+        opacity = 0.96,
+        font_path = ""
     },
     binds = {
         menu_key = 0x4B,
@@ -1133,7 +1141,7 @@ KladManager.Runtime = {
     menu_open=false,
     minimap_open=false,
     profile_open=false,
-    auth_open=true,
+    auth_open=false,
     active_tab="settings",
     tab_alpha=1.0,
     last_tick=0,
@@ -1146,6 +1154,8 @@ KladManager.Runtime = {
     cache_received_at=nil,
     manifest_maintenance=false,
     texture_error=nil,
+    libs_version="local",
+    assets_version="local",
     seen_server_loaded=false,
     seen_server={},
     seen_server_order={}
@@ -1299,6 +1309,7 @@ function KladManager.NormalizeSettings()
     settings.ui.scale = KladManager.IsChoice(settings.ui.scale, {"small","medium","large"})
         and settings.ui.scale or "medium"
     settings.ui.opacity = KladManager.Clamp(tonumber(settings.ui.opacity) or 0.96, 0.65, 1.0)
+    settings.ui.font_path = tostring(settings.ui.font_path or ""):gsub("[\r\n]", "")
     settings.binds.menu_key = KladManager.Clamp(math.floor(tonumber(settings.binds.menu_key) or 75), 1, 255)
     settings.binds.minimap_key = KladManager.Clamp(math.floor(tonumber(settings.binds.minimap_key) or 77), 1, 255)
     settings.binds.menu_mode = KladManager.IsChoice(settings.binds.menu_mode, {"hold","toggle"})
@@ -2124,9 +2135,6 @@ function KladManager.SetAuthState(state, message)
     KladManager.Auth.state = state
     KladManager.Auth.message = tostring(message or "")
     KladManager.Auth.busy = false
-    if state ~= "approved" then
-        KladManager.Runtime.auth_open = true
-    end
 end
 
 function KladManager.MapAuthError(error_data)
@@ -2226,8 +2234,8 @@ function KladManager.LoadRemoteBootstrap()
             KladManager.Auth.state = "approved"
             KladManager.Auth.message = "Доступ подтверждён."
             KladManager.Auth.busy = false
+            KladManager.Runtime.menu_open = KladManager.Runtime.auth_open
             KladManager.Runtime.auth_open = false
-            KladManager.Runtime.menu_open = true
             KladManager.Gameplay.last_cluster_sync = -60000
             KladManager.Gameplay.last_loot_sync = -60000
             KladManager.BufferSet(KladManager.Buffers.password, 128, "")
@@ -4948,7 +4956,7 @@ end
 
 function KladManager.DisabledBegin(disabled)
     if disabled then
-        KladManager.ImGui.PushStyleVar(
+        KladManager.ImGui.PushStyleVarFloat(
             KladManager.ImGui.StyleVar.Alpha,
             KladManager.ImGui.GetStyle().Alpha * 0.46
         )
@@ -5082,7 +5090,8 @@ function KladManager.Input(id, hint, buffer, capacity, disabled)
         "##" .. tostring(id),
         KladManager.U8(hint),
         buffer,
-        capacity
+        capacity,
+        disabled and imgui.InputTextFlags.ReadOnly or 0
     )
     imgui.PopItemWidth()
     KladManager.DisabledEnd(disabled)
@@ -5093,7 +5102,8 @@ function KladManager.PasswordInput(id, hint, buffer, capacity, visible, disabled
     local imgui = KladManager.ImGui
     KladManager.DisabledBegin(disabled)
     imgui.PushItemWidth(-KladManager.Scaled(42))
-    local flags = visible and 0 or imgui.InputTextFlags.Password
+    local flags = (visible and 0 or imgui.InputTextFlags.Password)
+        + (disabled and imgui.InputTextFlags.ReadOnly or 0)
     local changed = imgui.InputTextWithHint(
         "##" .. tostring(id),
         KladManager.U8(hint),
@@ -5484,8 +5494,8 @@ function KladManager.RenderNotifications()
             imgui.SetNextWindowPos(imgui.ImVec2(x, y), imgui.Cond.Always)
             imgui.SetNextWindowSize(imgui.ImVec2(width, row_height), imgui.Cond.Always)
             imgui.SetNextWindowBgAlpha(0.96 * animation)
-            imgui.PushStyleVar(imgui.StyleVar.WindowRounding, KladManager.Scaled(8))
-            imgui.PushStyleVar(imgui.StyleVar.WindowPadding, imgui.ImVec2(
+            imgui.PushStyleVarFloat(imgui.StyleVar.WindowRounding, KladManager.Scaled(8))
+            imgui.PushStyleVarVec2(imgui.StyleVar.WindowPadding, imgui.ImVec2(
                 KladManager.Scaled(12),
                 KladManager.Scaled(10)
             ))
@@ -5656,14 +5666,20 @@ function KladManager.TickBinds()
     if KladManager.NowMs() < (KladManager.BindCapture.suppress_until or 0) then
         return
     end
-    KladManager.ApplyBind("menu_key", KladManager.Settings.binds.menu_mode, "menu_open")
     if KladManager.Auth.state == "approved" then
+        KladManager.ApplyBind("menu_key", KladManager.Settings.binds.menu_mode, "menu_open")
         KladManager.ApplyBind(
             "minimap_key",
             KladManager.Settings.binds.minimap_mode,
             "minimap_open"
         )
     else
+        if KladManager.Settings.binds.menu_mode == "hold" then
+            KladManager.Runtime.auth_open = isKeyDown(KladManager.Settings.binds.menu_key)
+        elseif wasKeyPressed(KladManager.Settings.binds.menu_key) then
+            KladManager.Runtime.auth_open = not KladManager.Runtime.auth_open
+        end
+        KladManager.Runtime.menu_open = false
         KladManager.Runtime.minimap_open = false
     end
 end
@@ -6309,8 +6325,8 @@ function KladManager.RenderMinimapWindow()
     end
     imgui.SetNextWindowSize(imgui.ImVec2(size, size), imgui.Cond.Always)
     imgui.SetNextWindowBgAlpha(KladManager.Settings.map.minimap_opacity)
-    imgui.PushStyleVar(imgui.StyleVar.WindowPadding, imgui.ImVec2(0, 0))
-    imgui.PushStyleVar(
+    imgui.PushStyleVarVec2(imgui.StyleVar.WindowPadding, imgui.ImVec2(0, 0))
+    imgui.PushStyleVarFloat(
         imgui.StyleVar.Alpha,
         KladManager.Settings.map.minimap_opacity
     )
@@ -6370,37 +6386,71 @@ function KladManager.OpenUrl(url)
     return true
 end
 
-function KladManager.SetupFonts()
+function KladManager.ResolveTextFontPath()
+    local custom = tostring(KladManager.Settings.ui.font_path or "")
+    if custom ~= "" and doesFileExist(custom) then
+        return custom
+    end
+    local bundled = getFolderPath(0x14) .. "\\trebucbd.ttf"
+    if doesFileExist(bundled) then
+        return bundled
+    end
+    return nil
+end
+
+function KladManager.InstallTextFont(size)
     local imgui = KladManager.ImGui
     local io = imgui.GetIO()
-    local text_path = getFolderPath(0x14) .. "\\trebucbd.ttf"
+    local path = KladManager.ResolveTextFontPath()
+    if path then
+        local ok, font = pcall(
+            io.Fonts.AddFontFromFileTTF,
+            io.Fonts,
+            path,
+            size,
+            nil,
+            io.Fonts:GetGlyphRangesCyrillic()
+        )
+        if ok and font then
+            KladManager.Fonts.text_path = path
+            return font
+        end
+    end
+    return io.Fonts:AddFontDefault()
+end
+
+function KladManager.InstallIconFont(size)
+    local imgui = KladManager.ImGui
+    local io = imgui.GetIO()
+    local config = imgui.ImFontConfig()
+    config.MergeMode = false
+    config.PixelSnapH = true
+    local ranges = imgui.new.ImWchar[3](
+        KladManager.fa.min_range,
+        KladManager.fa.max_range,
+        0
+    )
+    local ok, font = pcall(
+        io.Fonts.AddFontFromMemoryCompressedBase85TTF,
+        io.Fonts,
+        KladManager.fa.get_font_data_base85(),
+        size,
+        config,
+        ranges
+    )
+    return ok and font or nil
+end
+
+function KladManager.SetupFonts()
+    local imgui = KladManager.ImGui
     local sizes = {
         small=12.0,
         medium=14.0,
         large=16.0
     }
     for name, size in pairs(sizes) do
-        KladManager.Fonts.text_path = text_path
-        KladManager.Fonts["text_" .. name] = io.Fonts:AddFontFromFileTTF(
-            text_path,
-            size,
-            nil,
-            io.Fonts:GetGlyphRangesCyrillic()
-        )
-        local config = imgui.ImFontConfig()
-        config.MergeMode = false
-        config.PixelSnapH = true
-        local ranges = imgui.new.ImWchar[3](
-            KladManager.fa.min_range,
-            KladManager.fa.max_range,
-            0
-        )
-        KladManager.Fonts["icon_" .. name] = io.Fonts:AddFontFromMemoryCompressedBase85TTF(
-            KladManager.fa.get_font_data_base85(),
-            size,
-            config,
-            ranges
-        )
+        KladManager.Fonts["text_" .. name] = KladManager.InstallTextFont(size)
+        KladManager.Fonts["icon_" .. name] = KladManager.InstallIconFont(size)
     end
 end
 
@@ -6541,7 +6591,7 @@ function KladManager.RenderProfilePopup()
         local achievements =
             type(profile.achievements) == "table" and profile.achievements or {}
         KladManager.ProfileValue("Достижения", tostring(#achievements))
-        if #achievements > 0 and imgui.TreeNode(KladManager.U8("Открытые достижения")) then
+        if #achievements > 0 and imgui.TreeNodeStr(KladManager.U8("Открытые достижения")) then
             for _, achievement in ipairs(achievements) do
                 imgui.BulletText(KladManager.U8(tostring(achievement.name or achievement.code)))
             end
@@ -6690,7 +6740,7 @@ function KladManager.RenderDiagnostics()
         "diag_runtime",
         "Клиент",
         "Protocol " .. tostring(KM_PROTOCOL_VERSION)
-            .. ", libs " .. tostring(KM_LIBS_VERSION)
+            .. ", libs " .. tostring(KladManager.Runtime.libs_version)
             .. ", FPS " .. tostring(KladManager.Runtime.fps),
         tostring(math.floor(KladManager.Runtime.frame_ms * 10) / 10) .. " мс"
     )
@@ -8005,7 +8055,7 @@ function KladManager.RenderMainContent()
         1.0,
         9.0
     )
-    imgui.PushStyleVar(
+    imgui.PushStyleVarFloat(
         imgui.StyleVar.Alpha,
         imgui.GetStyle().Alpha * KladManager.Runtime.tab_alpha
     )
@@ -8256,13 +8306,13 @@ function KladManager.RenderMainWindow()
         imgui.Cond.FirstUseEver,
         imgui.ImVec2(0.5, 0.5)
     )
-    imgui.PushStyleVar(imgui.StyleVar.WindowPadding, imgui.ImVec2(0, 0))
+    imgui.PushStyleVarVec2(imgui.StyleVar.WindowPadding, imgui.ImVec2(0, 0))
     local flags = imgui.WindowFlags.NoResize + imgui.WindowFlags.NoCollapse
         + imgui.WindowFlags.NoTitleBar
     if imgui.Begin("##KladManagerMain", nil, flags) then
         KladManager.RenderSidebar()
         imgui.SameLine(0, 0)
-        imgui.PushStyleVar(
+        imgui.PushStyleVarVec2(
             imgui.StyleVar.WindowPadding,
             imgui.ImVec2(KladManager.Scaled(16), KladManager.Scaled(13))
         )
@@ -8448,7 +8498,7 @@ function main()
         if not KM_BOOTSTRAP_ASSETS(manifest) then
             return KladManager.StopStartup("Не удалось скачать или проверить ресурсы")
         end
-    elseif not KM_LIBS_OK() or not KM_ASSETS_OK() then
+    elseif not KM_LIB_FILES_OK() or not KM_ASSET_FILES_OK() then
         return KladManager.StopStartup(
             "Манифест недоступен, а локальные библиотеки или ресурсы повреждены"
         )
