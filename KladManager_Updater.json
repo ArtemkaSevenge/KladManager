@@ -2,135 +2,19 @@
   "schema_version": 1,
   "version": "0.8.1",
   "protocol_version": 2,
+  "script_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/KladManager.luac",
+  "script_size": 310113,
+  "script_sha256": "d08a60d6980f738d053b0bba9a2ddaeb418e29c560eb54a089576e81685e8ef2",
   "libs_version": "1.1.0",
-  "repository_raw_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main",
-  "api_base_url": "",
+  "libs_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/Libs/KladManager_Libs.zip",
+  "libs_size": 2893836,
+  "libs_sha256": "cfa68e209fcee434bf9c799593d3ea2485b229e3640d790ca54db77929883c10",
+  "map_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/Images/Map.jpg",
+  "map_sha256": "7825f1a0ce7a49bf7796c6e7485ea58f3925b269d09a8547256fc2e1918738be",
+  "icons_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/Images_Items/icons.json",
+  "icons_sha256": "ec15568857b59dcb0521c191640e0773deb5ee02bccd4a75a13ea85ff4904be6",
+  "atlas_url": "https://raw.githubusercontent.com/ArtemkaSevenge/KladManager/main/Images_Items/items_atlas.png",
+  "atlas_sha256": "526c63d062d17166919f04cf071b3ad28796490e5736fdd3691fd6616c50bc08",
   "release_notes": "KladManager: Font Awesome 6 Solid, очищенный ZIP библиотек и автоматические проверки обновления.",
-  "maintenance_message": "",
-  "assets": {
-    "map": {
-      "source": "Images/Map.jpg",
-      "release_path": "Images/Map.jpg"
-    },
-    "icons": {
-      "source": "AtlasScript/GitHub/icons.json",
-      "release_path": "Images_Items/icons.json"
-    },
-    "atlas": {
-      "source": "AtlasScript/GitHub/items_atlas_0.png",
-      "release_path": "Images_Items/items_atlas.png"
-    }
-  },
-  "libraries": [
-    {
-      "source": "lib/mimgui/init.lua",
-      "path": "lib/mimgui/init.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/mimgui/imgui.lua",
-      "path": "lib/mimgui/imgui.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/mimgui/dx9.lua",
-      "path": "lib/mimgui/dx9.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/mimgui/cdefs.lua",
-      "path": "lib/mimgui/cdefs.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/mimgui/cimguidx9.dll",
-      "path": "lib/mimgui/cimguidx9.dll",
-      "critical": true
-    },
-    {
-      "source": "lib/fAwesome6_solid.lua",
-      "path": "lib/fAwesome6.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/encoding.lua",
-      "path": "lib/encoding.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/iconv.dll",
-      "path": "lib/iconv.dll",
-      "critical": true
-    },
-    {
-      "source": "lib/json.lua",
-      "path": "lib/json.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/effil.lua",
-      "path": "lib/effil.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/libeffil.dll",
-      "path": "lib/libeffil.dll",
-      "critical": true
-    },
-    {
-      "source": "lib/sampfuncs.lua",
-      "path": "lib/sampfuncs.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/vector3d.lua",
-      "path": "lib/vector3d.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/samp/events.lua",
-      "path": "lib/samp/events.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/samp/raknet.lua",
-      "path": "lib/samp/raknet.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/samp/synchronization.lua",
-      "path": "lib/samp/synchronization.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/samp/events/bitstream_io.lua",
-      "path": "lib/samp/events/bitstream_io.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/samp/events/core.lua",
-      "path": "lib/samp/events/core.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/samp/events/extra_types.lua",
-      "path": "lib/samp/events/extra_types.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/samp/events/handlers.lua",
-      "path": "lib/samp/events/handlers.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/samp/events/utils.lua",
-      "path": "lib/samp/events/utils.lua",
-      "critical": true
-    },
-    {
-      "source": "lib/windows/message.lua",
-      "path": "lib/windows/message.lua",
-      "critical": true
-    }
-  ]
+  "maintenance_message": ""
 }
